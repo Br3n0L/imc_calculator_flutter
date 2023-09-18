@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController alturaController = TextEditingController();
+  TextEditingController nomeController = TextEditingController();
+
+  TextEditingController pesoController = TextEditingController();
+  String? resultado;
+  String? imc;
+
+  void resetFields() {
+    alturaController.text = '';
+    pesoController.text = '';
+    imc = null;
+    resultado = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -103,37 +117,46 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 Container(
-                  margin: const EdgeInsets.all(20),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Idade',
+                  margin: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: nomeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Nome',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(20),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Altura',
+                  margin: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: alturaController,
+                    decoration: const InputDecoration(
+                      suffixText: 'Ex. 177',
+                      hintText: 'Altura em Cm',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(20),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Peso',
+                  margin: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: pesoController,
+                    decoration: const InputDecoration(
+                      hintText: 'Peso KG',
+                      suffixText: 'Ex. 90',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 20, 8, 20),
+                  height: 20,
+                  child: Text('$resultado'),
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(20, 20, 8, 20),
                   child: Row(
                     children: [
                       Container(
@@ -146,13 +169,17 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  resetFields();
+                                });
+                              },
                               child: const Row(
                                 children: [Icon(Icons.refresh), Text('Apagar')],
                               ),
                             ),
                             const SizedBox(
-                              width: 50,
+                              width: 10,
                             ),
                           ],
                         ),
@@ -167,7 +194,33 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           children: [
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                double? peso =
+                                    double.tryParse(pesoController.text);
+                                double? altura =
+                                    double.tryParse(alturaController.text);
+
+                                if (peso != null && altura != null) {
+                                  altura = altura / 100.0;
+                                  double _imc = (peso / (altura * altura))
+                                      .roundToDouble();
+
+                                  resultado =
+                                      'Digite seus dados para obter o cálculo';
+
+                                  setState(() {
+                                    imc = _imc.toString();
+                                    if (nomeController == '' &&
+                                        alturaController == '' &&
+                                        pesoController == '') {
+                                      resultado = ' Digite seus dados. ';
+                                    } else {
+                                      resultado =
+                                          'O resultado do IMC de ${nomeController.text} é $imc';
+                                    }
+                                  });
+                                }
+                              },
                               child: const Row(
                                 children: [
                                   Icon(Icons.forward),
@@ -183,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
