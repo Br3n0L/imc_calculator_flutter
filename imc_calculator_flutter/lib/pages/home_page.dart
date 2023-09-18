@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 12,
                 ),
                 const SizedBox(
                   height: 10,
@@ -87,11 +87,11 @@ class _HomePageState extends State<HomePage> {
                   child: Text('$resultado'),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(20, 20, 8, 20),
+                  margin: const EdgeInsets.fromLTRB(50, 20, 20, 50),
                   child: Row(
                     children: [
                       Container(
-                        width: 200,
+                        width: 130,
                         height: 75,
                         decoration: BoxDecoration(
                             color: const Color(0xff879BA2),
