@@ -2,7 +2,7 @@
 
 "A new Flutter project."
 
-**https://dribbble.com/shots/7129206-BMI-Calculator/attachments/132738?mode=media**
+
 
 ## Getting Started
 
