@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController alturaController = TextEditingController();
   TextEditingController nomeController = TextEditingController();
-
   TextEditingController pesoController = TextEditingController();
   String? _infoText = 'Informe seus dados';
   String? imc;
@@ -124,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                             const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
                         child: ElevatedButton(
                           onPressed: _calculate,
-                          child: Text('Calcular'),
+                          child: const Text('Calcular'),
                         ),
                       ),
                       const SizedBox(
@@ -133,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Text('$_infoText'),
                 ),

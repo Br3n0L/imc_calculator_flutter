@@ -1,0 +1,28 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "imc_calculator_flutter",
+            "cwd": "imc_calculator_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "imc_calculator_flutter (profile mode)",
+            "cwd": "imc_calculator_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "imc_calculator_flutter (release mode)",
+            "cwd": "imc_calculator_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
