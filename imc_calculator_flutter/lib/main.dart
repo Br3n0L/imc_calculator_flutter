@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imc_calculator_flutter/pages/home_page.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart' as path;
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

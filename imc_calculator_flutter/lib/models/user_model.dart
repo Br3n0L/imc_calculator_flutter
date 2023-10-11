@@ -12,10 +12,10 @@ class Usermodel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['altura'] = this.altura;
-    data['peso'] = this.peso;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['altura'] = altura;
+    data['peso'] = peso;
     return data;
   }
 }
