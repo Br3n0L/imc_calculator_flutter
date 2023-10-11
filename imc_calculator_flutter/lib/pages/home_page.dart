@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imc_calculator_flutter/pages/historic_imc.dart';
 
 import 'package:imc_calculator_flutter/repositores/services/_imc_sqlite_repository.dart';
 
@@ -93,14 +94,14 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
           child: Container(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: Column(
               children: [
-                // Container(
-                //   child: Image.network(
-                //     'https://www.tjdft.jus.br/informacoes/programas-projetos-e-acoes/pro-vida/dicas-de-saude/pilulas-de-saude/o-que-o-indice-de-massa-corporal-imc-diz-sobre-sua-saude/@@images/6b4a3003-7224-4a8c-b001-14e6f2ecca9f.png',
-                //   ),
-                // ),
+                Container(
+                  child: Image.network(
+                    'https://www.tjdft.jus.br/informacoes/programas-projetos-e-acoes/pro-vida/dicas-de-saude/pilulas-de-saude/o-que-o-indice-de-massa-corporal-imc-diz-sobre-sua-saude/@@images/6b4a3003-7224-4a8c-b001-14e6f2ecca9f.png',
+                  ),
+                ),
                 const SizedBox(
                   height: 50,
                 ),
@@ -138,7 +139,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-
                 Container(
                   margin: const EdgeInsets.fromLTRB(20, 20, 8, 20),
                   child: Row(
@@ -156,6 +156,7 @@ class _HomePageState extends State<HomePage> {
 
                             _calculate();
                             carregarDados();
+                            repository.iniciarBancoDeDados();
                           },
                           child: const Text('Calcular'),
                         ),
@@ -196,10 +197,10 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => HistoricIMCScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HistoricIMCScreen()));
                     },
                     child: const Text('Histórico'),
                   ),

@@ -1,6 +1,35 @@
-import 'package:imc_calculator_flutter/sqlite/database_sqlite.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:imc_calculator_flutter/sqlite/imc_sqlite_model.dart';
 import 'package:intl/intl.dart';
+
+class SQLiteDataBase {
+  static Database? _database;
+
+  Future<Database> obterDataBase() async {
+    if (_database != null) {
+      return _database!;
+    }
+
+    _database = await openDatabase(
+      'ListadadosArmazenados.db',
+      version: 1,
+      onCreate: (db, version) {
+        // Crie a tabela "ListadadosArmazenados" se ela não existir
+        db.execute('''
+          CREATE TABLE IF NOT EXISTS ListadadosArmazenados (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT,
+            peso REAL,
+            altura REAL,
+            dataCalculo TEXT
+          )
+        ''');
+      },
+    );
+
+    return _database!;
+  }
+}
 
 class ImcSqliteRepository {
   Future<List<ImcSqliteModel>> iniciarBancoDeDados() async {
@@ -9,13 +38,15 @@ class ImcSqliteRepository {
     var result = await db.rawQuery(
         'SELECT id, nome, peso, altura, dataCalculo FROM ListadadosArmazenados');
     for (var element in result) {
+      final formatoData =
+          DateFormat('dd/MM/yyyy HH:mm'); // Formato igual ao usado para salvar
       ListadadosArmazenados.add(
         ImcSqliteModel(
           id: int.parse(element['id'].toString()),
           nome: element['nome'].toString(),
           peso: double.parse(element['peso'].toString()),
           altura: double.parse(element['altura'].toString()),
-          dataCalculo: DateTime.parse(element['dataCalculo'].toString()),
+          dataCalculo: formatoData.parse(element['dataCalculo'].toString()),
         ),
       );
     }
@@ -52,7 +83,7 @@ class ImcSqliteRepository {
   Future<void> remover(int id) async {
     var db = await SQLiteDataBase().obterDataBase();
     await db.rawInsert(
-      'DELETE ListadadosArmazenados WHERE id = ?',
+      'DELETE FROM ListadadosArmazenados WHERE id = ?',
       [
         id,
       ],
