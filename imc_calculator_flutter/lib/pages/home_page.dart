@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:imc_calculator_flutter/pages/historic_imc.dart';
 import 'package:imc_calculator_flutter/repositores/services/_imc_sqlite_repository.dart';
+
 import 'package:imc_calculator_flutter/repositores/services/app_storage_services.dart';
-import 'package:imc_calculator_flutter/sqlite/Imc_sqlite_model.dart';
+import 'package:imc_calculator_flutter/sqlite/imc_sqlite_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,11 +52,9 @@ class _HomePageState extends State<HomePage> {
 
   _calculate() {
     setState(() {
-      int id = 1;
       String nomeDigitado = nomeController.text;
       double altura = double.parse(alturaController.text) / 100;
       double peso = double.parse(pesoController.text);
-      String datacalculoimc = DateTime.now().toString();
 
       double ImcRetorno = peso / (altura * altura);
       if (ImcRetorno < 18.6) {
@@ -166,13 +164,22 @@ class _HomePageState extends State<HomePage> {
                         padding:
                             const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
                         child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HistoricIMCScreen()));
+                          onPressed: () async {
+                            await storage
+                                .setDadosCasdastraisNome(nomeController.text);
+                            await storage.setDadosCadastraisaltura(
+                                double.parse(alturaController.text));
+                            final imcSqliteModel = ImcSqliteModel(
+                              id: 0,
+                              nome: nomeController.text,
+                              peso: double.parse(pesoController.text),
+                              altura: double.parse(alturaController.text),
+                              dataCalculo: DateTime.now(),
+                            );
+
+                            repository.salvar(imcSqliteModel);
                           },
-                          child: const Text('Histórico'),
+                          child: const Text('Salvar'),
                         ),
                       ),
                       const SizedBox(
@@ -184,6 +191,18 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: double.infinity,
                   child: Text('$_infoText'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => HistoricIMCScreen()));
+                    },
+                    child: const Text('Histórico'),
+                  ),
                 ),
               ],
             ),

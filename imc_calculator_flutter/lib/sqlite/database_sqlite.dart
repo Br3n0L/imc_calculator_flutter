@@ -18,8 +18,7 @@ class SQLiteDataBase {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           nome TEXT,
           peso REAL,
-          altura REAL,
-          imcRetornoHistorico REAL
+          altura REAL,          
           datacalculoimc TEXT
           );'''
   };

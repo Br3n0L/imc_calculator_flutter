@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imc_calculator_flutter/pages/home_page.dart';
-import 'package:sqflite/sqflite.dart';
+
 import 'package:path/path.dart' as path;
 
 void main() async {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xffC8D8DF)),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
